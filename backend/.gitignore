@@ -1,1 +1,64 @@
 .env
+# ===== Node.js =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===== Environment Variables (IMPORTANT) =====
+.env
+.env.local
+.env.development
+.env.production
+
+# ===== Backend =====
+backend/node_modules/
+backend/uploads/
+backend/dist/
+backend/build/
+
+# ===== Frontend (React) =====
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# ===== Audio / Voice Files =====
+*.wav
+*.mp3
+*.ogg
+*.m4a
+*.flac
+audio/
+recordings/
+voice-recordings/
+
+# ===== AI / Model Files =====
+models/
+*.bin
+*.pt
+*.h5
+*.onnx
+
+# ===== Logs =====
+logs/
+*.log
+
+# ===== OS / Editor Files =====
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ===== Cache =====
+.cache/
+.temp/
+.tmp/
+
+# ===== Testing =====
+coverage/
+
+# ===== Misc =====
+*.zip
+*.rar
