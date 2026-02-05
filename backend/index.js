@@ -21,10 +21,9 @@ app.use(cors({
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
 
-        const allowedOrigins = [
-            "hhttps://new-chatbot-voice1-frontend.onrender.com"
-           
-        ];
+       const allowedOrigins = [
+  "https://new-chatbot-voice1-frontend.onrender.com"
+];
 
         if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
