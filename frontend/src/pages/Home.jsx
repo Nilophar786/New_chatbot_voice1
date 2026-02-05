@@ -44,33 +44,9 @@ function Home() {
 
 
 
-  // Show error state if there's an error and no userData
-  if (error && !userData && !loading) {
-    return (
-      <div className="w-full h-[100vh] bg-gradient-to-br from-black via-purple-900/20 to-black flex justify-center items-center flex-col gap-[15px] fixed inset-0 overflow-hidden">
-        <div className="text-red-400 text-2xl font-semibold text-center">Connection Error</div>
-        <div className="text-gray-300 text-center max-w-md">
-          Unable to connect to the server. Please check your internet connection and try refreshing the page.
-        </div>
-        <button
-          onClick={() => window.location.reload()}
-          className="mt-4 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
-        >
-          Refresh Page
-        </button>
-      </div>
-    );
-  }
-
-  // Show loading state while userData is being fetched
-  if (loading || !userData) {
-    return (
-      <div className="w-full h-[100vh] bg-gradient-to-br from-black via-purple-900/20 to-black flex justify-center items-center flex-col gap-[15px] fixed inset-0 overflow-hidden">
-        <div className="text-white text-2xl font-semibold">Loading...</div>
-        <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
-        <div className="text-gray-400 text-sm mt-2">Connecting to server...</div>
-      </div>
-    );
+  // Don't render anything if userData is not available (will redirect via useEffect)
+  if (!userData) {
+    return null;
   }
   const [userText,setUserText]=useState("")
   const [aiText,setAiText]=useState("")
@@ -406,9 +382,8 @@ function Home() {
     const utterence=new SpeechSynthesisUtterance(text)
 
     // Map language to langCode
-    let langCode = 'en-US'; // default English priority
+    let langCode = 'en-US'; // default
     if (language === 'hi') langCode = 'hi-IN';
-    else if (language === 'mr') langCode = 'mr-IN'; // Marathi support
     else if (language === 'es') langCode = 'es-ES';
     else if (language === 'fr') langCode = 'fr-FR';
     else if (language === 'de') langCode = 'de-DE';
@@ -1609,7 +1584,7 @@ useEffect(() => {
   const recognition = new SpeechRecognition();
 
   recognition.continuous = true;
-  recognition.lang = langCode; // Support Hindi, English, and Marathi
+  recognition.lang = 'en-US';
   recognition.interimResults = false;
 
   recognitionRef.current = recognition;
@@ -1999,9 +1974,6 @@ useEffect(() => {
   const [weatherData, setWeatherData] = useState(null);
   const [weatherLoading, setWeatherLoading] = useState(false);
   const [weatherError, setWeatherError] = useState(null);
-
-  // Language code for speech recognition - default to English
-  const [langCode, setLangCode] = useState('en-US');
 
   useEffect(() => {
     const gradients = [

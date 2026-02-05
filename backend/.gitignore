@@ -1,64 +1,37 @@
 .env
-# ===== Node.js =====
+# Node dependencies
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
-# ===== Environment Variables (IMPORTANT) =====
+# Environment variables
 .env
 .env.local
-.env.development
 .env.production
 
-# ===== Backend =====
-backend/node_modules/
-backend/uploads/
-backend/dist/
-backend/build/
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
 
-# ===== Frontend (React) =====
-frontend/node_modules/
-frontend/build/
-frontend/dist/
-frontend/.env
-frontend/.env.local
+# Build output (if any)
+dist/
+build/
 
-# ===== Audio / Voice Files =====
-*.wav
-*.mp3
-*.ogg
-*.m4a
-*.flac
-audio/
-recordings/
-voice-recordings/
+# Coverage
+coverage/
 
-# ===== AI / Model Files =====
-models/
-*.bin
-*.pt
-*.h5
-*.onnx
+# Cache
+.cache/
 
-# ===== Logs =====
-logs/
-*.log
-
-# ===== OS / Editor Files =====
+# OS files
 .DS_Store
 Thumbs.db
+
+# Editor settings
 .vscode/
 .idea/
 
-# ===== Cache =====
-.cache/
-.temp/
-.tmp/
-
-# ===== Testing =====
-coverage/
-
-# ===== Misc =====
-*.zip
-*.rar
+# Additional cache and temp files
+.nyc_output/
+*.tmp
+.eslintcache
+.parcel-cache/
