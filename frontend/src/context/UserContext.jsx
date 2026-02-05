@@ -6,7 +6,7 @@ export const userDataContext = createContext()
 
 function UserContext({ children }) {
   const navigate = useNavigate()
-  // Use localhost with port 8000
+  // Use the correct backend URL for production
   const serverUrl = 'https://new-chatbot-voice1.onrender.com'
 
   const [userData, setUserData] = useState(null)
