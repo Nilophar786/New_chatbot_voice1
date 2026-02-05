@@ -22,9 +22,9 @@ app.use(cors({
         if (!origin) return callback(null, true);
 
         const allowedOrigins = [
-            "https://new-chatbot-voice1-1-frontend.onrender.com",
-            "https://new-chatbot-voice1.onrender.com"
-
+            "http://localhost:5173",
+            "http://localhost:5174",
+           
         ];
 
         if (allowedOrigins.indexOf(origin) !== -1) {
