@@ -7,7 +7,7 @@ export const userDataContext = createContext()
 function UserContext({ children }) {
   const navigate = useNavigate()
   // Use the correct backend URL for production
-  const serverUrl = 'https://new-chatbot-voice1.onrender.com'
+  const serverUrl = 'https://new-chatbot-voice1-backend.onrender.com'
 
   const [userData, setUserData] = useState(null)
   const [loading, setLoading] = useState(true)
