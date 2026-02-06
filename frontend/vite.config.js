@@ -13,7 +13,7 @@ export default defineConfig({
           ui: ['framer-motion', 'react-icons', 'lottie-react', '@tsparticles/react', '@tsparticles/preset-stars'],
           router: ['react-router-dom'],
           utils: ['axios', 'react-speech-recognition', 'wavesurfer.js', 'react-tooltip', 'react-bootstrap'],
-          animations: ['gsap', 'react-speech-recognition'],
+           animations: ['gsap'],
         }
       }
     },
