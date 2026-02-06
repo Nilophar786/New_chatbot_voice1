@@ -48,12 +48,12 @@ export const signUp=async (req,res)=>{
         const token=await genToken(user._id)
 
         // Set cookie
-        res.cookie("token",token,{
-            httpOnly:true,
-            maxAge:7*24*60*60*1000,
-            sameSite:"strict",
-            secure: process.env.NODE_ENV === 'production'
-        })
+        res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "None",
+  maxAge: 7 * 24 * 60 * 60 * 1000
+});
 
         console.log(`User created successfully: ${user.email}`)
         return res.status(201).json({
@@ -105,12 +105,12 @@ try {
 
     const token=await genToken(user._id)
 
-    res.cookie("token",token,{
-        httpOnly:true,
-       maxAge:7*24*60*60*1000,
-       sameSite:"strict",
-       secure:false
-    })
+    res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "None",
+  maxAge: 7 * 24 * 60 * 60 * 1000
+});
 
     return res.status(200).json(user)
 
@@ -161,13 +161,13 @@ export const googleAuth = async (req, res) => {
         }
 
         const token = await genToken(user._id);
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "None",
+  maxAge: 7 * 24 * 60 * 60 * 1000
+});
 
-        res.cookie("token", token, {
-            httpOnly: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-            sameSite: "strict",
-            secure: false
-        });
 
         return res.status(200).json(user);
 
