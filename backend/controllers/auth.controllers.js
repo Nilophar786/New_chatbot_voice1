@@ -51,7 +51,8 @@ export const signUp=async (req,res)=>{
         res.cookie("token", token, {
   httpOnly: true,
   secure: true,
-  sameSite: "None",
+  sameSite: "none",
+  domain: ".onrender.com",
   maxAge: 7 * 24 * 60 * 60 * 1000
 });
 
@@ -105,10 +106,11 @@ try {
 
     const token=await genToken(user._id)
 
-    res.cookie("token", token, {
+res.cookie("token", token, {
   httpOnly: true,
   secure: true,
-  sameSite: "None",
+  sameSite: "none",
+  domain: ".onrender.com",
   maxAge: 7 * 24 * 60 * 60 * 1000
 });
 
