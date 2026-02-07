@@ -17,7 +17,7 @@ const app = express();
 
 // ✅ 1. CORS — MUST BE FIRST, before cookieParser and routes
 app.use(cors({
-  origin: "https://new-chatbot-voice1-frontend.onrender.com", // exact frontend URL
+  origin: ["https://new-chatbot-voice1-frontend.onrender.com", "http://localhost:5173"], // allow both production and localhost
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "Cookie", "X-Requested-With"]
