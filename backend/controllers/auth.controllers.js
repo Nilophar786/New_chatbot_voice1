@@ -48,11 +48,11 @@ export const signUp=async (req,res)=>{
         const token=await genToken(user._id)
 
         // Set cookie
-        res.cookie("token", token, {
+res.cookie("token", token, {
   httpOnly: true,
   secure: true,
   sameSite: "none",
-  domain: ".onrender.com",
+  domain: "new-chatbot-voice1.onrender.com",
   maxAge: 7 * 24 * 60 * 60 * 1000
 });
 
@@ -126,7 +126,8 @@ export const logOut=async (req,res)=>{
         res.clearCookie("token", {
             httpOnly: true,
             secure: true,
-            sameSite: "none"
+            sameSite: "none",
+            domain: ".onrender.com"
         })
          return res.status(200).json({message:"log out successfully"})
     } catch (error) {
