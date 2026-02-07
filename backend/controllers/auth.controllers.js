@@ -73,52 +73,52 @@ res.cookie("token", token, {
 }
 
 export const Login=async (req,res)=>{
-try {
-    const {email,password}=req.body
+    try {
+        const {email,password}=req.body
 
-    // Validate required fields
-    if(!email || !password){
-        return res.status(400).json({message:"Email and password are required"})
+        // Validate required fields
+        if(!email || !password){
+            return res.status(400).json({message:"Email and password are required"})
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if(!emailRegex.test(email)){
+            return res.status(400).json({message:"Please enter a valid email address"})
+        }
+
+        // Check for disposable email domains
+        if (isDisposableEmail(email)) {
+            return res.status(400).json({message:"Disposable email addresses are not allowed. Please use a permanent email address."})
+        }
+
+        // Normalize email
+        const normalizedEmail = email.toLowerCase().trim();
+
+        const user=await User.findOne({email: normalizedEmail})
+        if(!user){
+            return res.status(400).json({message:"Email does not exist!"})
+        }
+       const isMatch=await bcrypt.compare(password,user.password)
+
+       if(!isMatch){
+       return res.status(400).json({message:"Incorrect password"})
+       }
+
+        const token=await genToken(user._id)
+
+        res.cookie("token", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          domain: ".onrender.com",
+          maxAge: 7 * 24 * 60 * 60 * 1000
+        });
+
+        return res.status(200).json(user)
+
+    } catch (error) {
+           return res.status(500).json({message:`Login error: ${error.message}`})
     }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if(!emailRegex.test(email)){
-        return res.status(400).json({message:"Please enter a valid email address"})
-    }
-
-    // Check for disposable email domains
-    if (isDisposableEmail(email)) {
-        return res.status(400).json({message:"Disposable email addresses are not allowed. Please use a permanent email address."})
-    }
-
-    // Normalize email
-    const normalizedEmail = email.toLowerCase().trim();
-
-    const user=await User.findOne({email: normalizedEmail})
-    if(!user){
-        return res.status(400).json({message:"Email does not exist!"})
-    }
-   const isMatch=await bcrypt.compare(password,user.password)
-
-   if(!isMatch){
-   return res.status(400).json({message:"Incorrect password"})
-   }
-
-    const token=await genToken(user._id)
-
-res.cookie("token", token, {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none",
-  domain: ".onrender.com",
-  maxAge: 7 * 24 * 60 * 60 * 1000
-});
-
-    return res.status(200).json(user)
-
-} catch (error) {
-       return res.status(500).json({message:`Login error: ${error.message}`})
-}
 }
 
 export const logOut=async (req,res)=>{
