@@ -40,6 +40,11 @@ function SignIn() {
       setUserData(result.data)
       setSuccess("Sign in successful! Redirecting...")
 
+      // Store token in localStorage
+      if (result.data.token) {
+        localStorage.setItem('token', result.data.token)
+      }
+
       // Remember email if checkbox is checked
       if (rememberMe) {
         localStorage.setItem('rememberedEmail', email)

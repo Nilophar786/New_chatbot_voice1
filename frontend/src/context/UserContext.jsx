@@ -37,8 +37,17 @@ function UserContext({ children }) {
       setLoading(true)
       setError(null)
 
+      const token = localStorage.getItem('token')
+      if (!token) {
+        setUserData(null)
+        setLoading(false)
+        return
+      }
+
       const result = await axios.get(`${serverUrl}/api/user/current`, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
       console.log('handleCurrentUser result:', result.data)
 
@@ -55,6 +64,7 @@ function UserContext({ children }) {
 
       if (error.response && error.response.status === 401) {
         console.log('User not authenticated')
+        localStorage.removeItem('token')
         setUserData(null)
         navigate('/signin')
       } else if (error.response && error.response.status === 403) {
@@ -101,8 +111,13 @@ function UserContext({ children }) {
   // ✅ Refresh user data after customization changes
   const refreshUserData = async () => {
     try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+
       const result = await axios.get(`${serverUrl}/api/user/current`, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
       console.log('refreshUserData result:', result.data)
 
