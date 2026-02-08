@@ -56,8 +56,11 @@ function Customize2() {
 setLoading(false)
             console.log(result.data)
             setUserData(result.data)
-            // Force a complete page reload to ensure user data is properly updated
-            window.location.replace("/")
+            // Refresh user data and navigate to home with a small delay to ensure state update
+            await handleCurrentUser()
+            setTimeout(() => {
+                navigate("/")
+            }, 100)
         } catch (error) {
             setLoading(false)
             console.log(error)
