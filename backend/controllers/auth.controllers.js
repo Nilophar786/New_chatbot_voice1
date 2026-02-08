@@ -2,7 +2,6 @@ import genToken from "../config/token.js"
 import User from "../models/user.model.js"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-import { isDisposableEmail } from "../utils/emailUtils.js"
 
 export const signUp=async (req,res)=>{
     try {
@@ -19,10 +18,7 @@ export const signUp=async (req,res)=>{
             return res.status(400).json({message:"Please enter a valid email address"})
         }
 
-        // Check for disposable email domains
-        if (isDisposableEmail(email)) {
-            return res.status(400).json({message:"Disposable email addresses are not allowed. Please use a permanent email address."})
-        }
+
         // Check if email already exists
         const existEmail=await User.findOne({email})
         if(existEmail){
@@ -86,10 +82,7 @@ export const Login=async (req,res)=>{
             return res.status(400).json({message:"Please enter a valid email address"})
         }
 
-        // Check for disposable email domains
-        if (isDisposableEmail(email)) {
-            return res.status(400).json({message:"Disposable email addresses are not allowed. Please use a permanent email address."})
-        }
+
 
         // Normalize email
         const normalizedEmail = email.toLowerCase().trim();
