@@ -33,6 +33,12 @@ function Customize2() {
     const handleUpdateAssistant=async ()=>{
         setLoading(true)
         try {
+            const token = localStorage.getItem('token')
+            if (!token) {
+                navigate('/signin')
+                return
+            }
+
             let formData=new FormData()
             formData.append("assistantName",assistantName)
             if(backendImage){
@@ -42,7 +48,11 @@ function Customize2() {
             }
             // Add customizationData as required by the backend
             formData.append("customizationData", JSON.stringify(customizationData))
-            const result=await axios.post(`${serverUrl}/api/user/update`,formData,{withCredentials:true})
+            const result=await axios.post(`${serverUrl}/api/user/update`,formData,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
 setLoading(false)
             console.log(result.data)
             setUserData(result.data)
