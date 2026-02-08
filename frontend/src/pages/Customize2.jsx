@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import ParticleBackground from '../components/ParticleBackground';
 
 function Customize2() {
-    const {userData,backendImage,selectedImage,serverUrl,setUserData,customizationData}=useContext(userDataContext)
+    const {userData,backendImage,selectedImage,serverUrl,setUserData,customizationData,handleCurrentUser}=useContext(userDataContext)
     const [assistantName,setAssistantName]=useState(userData?.assistantName || "")
     const [loading,setLoading]=useState(false)
     const navigate=useNavigate()
@@ -56,7 +56,8 @@ function Customize2() {
 setLoading(false)
             console.log(result.data)
             setUserData(result.data)
-            navigate("/")
+            // Force a complete page reload to ensure user data is properly updated
+            window.location.replace("/")
         } catch (error) {
             setLoading(false)
             console.log(error)
