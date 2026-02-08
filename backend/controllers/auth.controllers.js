@@ -55,6 +55,7 @@ res.cookie("token", token, {
         console.log(`User created successfully: ${user.email}`)
         return res.status(201).json({
             message: "Account created successfully",
+            token,
             user: {
                 id: user._id,
                 name: user.name,
@@ -120,7 +121,7 @@ export const logOut=async (req,res)=>{
             httpOnly: true,
             secure: true,
             sameSite: "none",
-            domain: "new-chatbot-voice1.onrender.com"
+            domain: ".onrender.com"
         })
          return res.status(200).json({message:"log out successfully"})
     } catch (error) {
@@ -141,11 +142,6 @@ export const googleAuth = async (req, res) => {
         }
 
         const { email, name, picture } = decodedToken;
-
-        // Check for disposable email domains
-        if (isDisposableEmail(email)) {
-            return res.status(400).json({ message: "Disposable email addresses are not allowed. Please use a permanent email address." });
-        }
 
         // Check if user exists
         let user = await User.findOne({ email });
@@ -170,7 +166,14 @@ res.cookie("token", token, {
 });
 
 
-        return res.status(200).json(user);
+        return res.status(200).json({
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email
+            }
+        });
 
     } catch (error) {
         console.error("Google auth error:", error);
